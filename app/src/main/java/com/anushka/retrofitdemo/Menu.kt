@@ -21,7 +21,8 @@ class Menu : AppCompatActivity() {
         }
 
         btnBuscarUsuario.setOnClickListener(){
-
+            val intent = Intent(this,Usuario::class.java)
+            startActivity(intent)
         }
     }
 }
