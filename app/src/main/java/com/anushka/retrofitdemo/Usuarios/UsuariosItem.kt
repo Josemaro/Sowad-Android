@@ -10,34 +10,33 @@ data class UsuariosItem(
     @Expose
     val idUsuario: Int?,
 
-
     @SerializedName("nombres")
     @Expose
-    val nombres: String,
+    val nombres: String?,
 
     @SerializedName("apellidos")
     @Expose
-    val apellidos: String,
+    val apellidos: String?,
 
     @SerializedName("correo")
     @Expose
-    val correo: String
-/*
+    val correo: String,
+
     @SerializedName("contra")
     @Expose
-    val contra: String,
+    val contra: String?,
 
     @SerializedName("altura")
     @Expose
-    val altura: Float,
+    val altura: Float?,
 
     @SerializedName("peso")
     @Expose
-    val peso: Float,
+    val peso: Float?,
 
     @SerializedName("imagen")
     @Expose
-    val imagen: String
-*/
+    val imagen: String?
+
 
 )

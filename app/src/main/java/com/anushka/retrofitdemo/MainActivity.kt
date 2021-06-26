@@ -1,5 +1,6 @@
 package com.anushka.retrofitdemo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -16,11 +17,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-  private lateinit var retService: EjercicioService
+    private lateinit var retService: EjercicioService
     private lateinit var retService2: UsuarioService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        buttonRegresar.setOnClickListener() {
+            val intent = Intent(this,Menu::class.java)
+            startActivity(intent)
+        }
+
+
+
+
         retService = RetrofitInstance
             .getRetrofitInstance()
             .create(EjercicioService::class.java)
@@ -28,10 +39,12 @@ class MainActivity : AppCompatActivity() {
             .getRetrofitInstance()
             .create(UsuarioService::class.java)
         getRequestWithQueryParameters()
-        getRequestWithPathParameters()
+        //getRequestWithPathParameters()
         //uploadEjercicio()
-        uploadUsuario()
+        //uploadUsuario()
         //getRequestWithPathParameters2()
+
+
     }
 
 
@@ -46,8 +59,10 @@ class MainActivity : AppCompatActivity() {
                 while (ejerciciosList.hasNext()) {
                     val ejerciciosItem = ejerciciosList.next()
                     val result = " " + "Ejercicio : ${ejerciciosItem.nombre}" + "\n" +
-                            " " + "Duracion : ${ejerciciosItem.duracion}" + "\n" +
-                            " " + "Series : ${ejerciciosItem.series}" + "\n\n\n"
+                            " " + "descanso : ${ejerciciosItem.descanso}" + "\n" +
+                            " " + "series : ${ejerciciosItem.series}" + "\n" +
+                            " " + "duracion : ${ejerciciosItem.duracion}" + "\n" +
+                            " " + "repeticiones : ${ejerciciosItem.repeticiones}" + "\n\n\n"
                     text_view.append(result)
                 }
             }
@@ -97,18 +112,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun uploadUsuario() {
-        val usuario = UsuariosItem(null,"SABADO","SABADO","SABADO");
+        val usuario = UsuariosItem(null,"SABADO","SABADO","SABADO@GMAIl",null,null,null,null);
         val postResponse: LiveData<Response<UsuariosItem>> = liveData {
             val response = retService2.uploadUsuario(usuario)
             emit(response)
         }
-        postResponse.observe(this, Observer {
-            val receivedUsuariosItem = it.body()
-            val result = " " + "Nombre: ${receivedUsuariosItem?.nombres}" + "\n" +
-                    " " + "Apellidos : ${receivedUsuariosItem?.apellidos}" + "\n" +
-                    " " + "User id : ${receivedUsuariosItem?.idUsuario}" + "\n\n\n"
-            text_view.text = result
-        })
+        //postResponse.observe(this, Observer {
+         //   val receivedUsuariosItem = it.body()
+            //val result = " " + "Nombre: ${receivedUsuariosItem?.nombres}" + "\n" +""
+                   // " " + "Apellidos : ${receivedUsuariosItem?.apellidos}" + "\n" +
+                   // " " + "User id : ${receivedUsuariosItem?.idUsuario}" + "\n\n\n"
+
+            //text_view.text = result
+        //})
 
     }
 
